@@ -1,0 +1,936 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+@import "quill/dist/quill.snow.css";
+
+@layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* ============================================================
+   Scrollbar mượt mà - Phong cách Sáng
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* ============================================================
+   React Flow - Refined Editorial Light Theme
+   ============================================================ */
+.react-flow__node {
+  border-radius: 10px;
+}
+
+.react-flow__node .sn-node-handle {
+  opacity: 0;
+  transition: opacity 0.16s ease, transform 0.16s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.react-flow__node:hover .sn-node-handle,
+.react-flow__node.selected .sn-node-handle,
+.react-flow__node .sn-node-handle.connecting,
+.react-flow__node .sn-node-handle.valid,
+.react-flow__handle-connecting {
+  opacity: 1;
+}
+
+.react-flow__controls {
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+}
+
+.react-flow__controls-button {
+  background: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #64748b !important;
+  fill: #64748b !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.react-flow__controls-button:hover {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  fill: #0f172a !important;
+}
+
+.react-flow__minimap {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06) !important;
+}
+
+.react-flow__edge-path {
+  transition: stroke 0.16s ease, stroke-width 0.16s ease, stroke-opacity 0.16s ease;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: none !important;
+  animation: none !important;
+}
+
+/* ============================================================
+   Trình Soạn Thảo Quill.js (Theo mẫu người dùng)
+   ============================================================ */
+.sn-btn-zoom {
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sn-btn-zoom:hover {
+  background: #e4e6eb;
+  border-color: #94a3b8;
+}
+
+#toolbar-container {
+  padding-right: 8px;
+}
+
+#toolbar-container .ql-toolbar.ql-snow {
+  border: none !important;
+  padding: 6px 8px !important;
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+}
+
+#toolbar-container .ql-snow .ql-formats {
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Nhãn tiếng Việt cho dropdown cỡ chữ Quill */
+.ql-snow .ql-picker.ql-size {
+  width: 112px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: 'Bình thường' !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="small"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="small"]::before {
+  content: 'Nhỏ' !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="large"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="large"]::before {
+  content: 'Lớn' !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="huge"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="huge"]::before {
+  content: 'Rất lớn' !important;
+}
+
+.sn-toolbar-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  margin: 2px 0;
+}
+
+.sn-toolbar-pill-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sn-toolbar-link-btn {
+  background: #eef2ff;
+  color: #4338ca;
+  border-color: #c7d2fe;
+}
+
+.sn-toolbar-link-btn:hover:not(:disabled) {
+  background: #e0e7ff;
+  border-color: #a5b4fc;
+}
+
+.sn-toolbar-katex-btn {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.sn-toolbar-katex-btn:hover:not(:disabled) {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+}
+
+.sn-toolbar-image-btn {
+  background: #f0f9ff;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.sn-toolbar-image-btn:hover:not(:disabled) {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+/* Tờ giấy soạn thảo #editor */
+#editor .ql-container.ql-snow {
+  border: none !important;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+#editor .ql-editor {
+  padding: 28px 34px;
+  min-height: inherit;
+  line-height: 1.7;
+  color: #1e293b;
+}
+
+#editor .ql-editor.ql-blank::before {
+  left: 34px;
+  right: 34px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* ============================================================
+   Bề mặt Chế độ Đọc (.sn-read-surface) đồng bộ định dạng Quill
+   ============================================================ */
+.sn-read-surface {
+  color: #1e293b;
+  font-size: 15px;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.sn-read-surface p {
+  margin: 0 0 0.55em 0;
+}
+
+.sn-read-surface p:last-child {
+  margin-bottom: 0;
+}
+
+.sn-read-surface h1 {
+  font-size: 1.75em;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0.4em 0 0.4em 0;
+}
+
+.sn-read-surface h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0.4em 0 0.35em 0;
+}
+
+.sn-read-surface h3 {
+  font-size: 1.18em;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0.35em 0 0.3em 0;
+}
+
+.sn-read-surface ul,
+.sn-read-surface ol {
+  margin: 0.4em 0 0.65em 0;
+  padding-left: 1.55em;
+}
+
+.sn-read-surface ul {
+  list-style-type: disc;
+}
+
+.sn-read-surface ol {
+  list-style-type: decimal;
+}
+
+.sn-read-surface li {
+  margin: 0.2em 0;
+}
+
+.sn-read-surface code,
+#editor .ql-editor code {
+  background: #f1f5f9;
+  color: #be123c;
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+}
+
+/* Cỡ chữ & Căn lề & Thụt lề của Quill ở Chế độ Đọc */
+.sn-read-surface .ql-size-small {
+  font-size: 0.78em;
+}
+
+.sn-read-surface .ql-size-large {
+  font-size: 1.4em;
+}
+
+.sn-read-surface .ql-size-huge {
+  font-size: 2.1em;
+}
+
+.sn-read-surface .ql-align-center {
+  text-align: center;
+}
+
+.sn-read-surface .ql-align-right {
+  text-align: right;
+}
+
+.sn-read-surface .ql-align-justify {
+  text-align: justify;
+}
+
+.sn-read-surface .ql-indent-1 { padding-left: 2.5em; }
+.sn-read-surface .ql-indent-2 { padding-left: 5em; }
+.sn-read-surface .ql-indent-3 { padding-left: 7.5em; }
+.sn-read-surface .ql-indent-4 { padding-left: 10em; }
+.sn-read-surface .ql-indent-5 { padding-left: 12.5em; }
+.sn-read-surface .ql-indent-6 { padding-left: 15em; }
+
+/* ============================================================
+   Liên kết Nội bộ & Liên kết Ngoài
+   ============================================================ */
+.sn-internal-link,
+#editor .ql-editor a.sn-internal-link,
+.sn-read-surface a.sn-internal-link {
+  color: #4338ca;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  display: inline;
+}
+
+.sn-internal-link::before,
+#editor .ql-editor a.sn-internal-link::before,
+.sn-read-surface a.sn-internal-link::before {
+  content: '↗ ';
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+.sn-internal-link:hover,
+#editor .ql-editor a.sn-internal-link:hover,
+.sn-read-surface a.sn-internal-link:hover {
+  background: #e0e7ff;
+  border-color: #818cf8;
+}
+
+.sn-external-link,
+#editor .ql-editor a.sn-external-link,
+.sn-read-surface a.sn-external-link {
+  color: #0284c7;
+  text-decoration: underline;
+  text-decoration-color: #7dd3fc;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.sn-external-link:hover,
+#editor .ql-editor a.sn-external-link:hover,
+.sn-read-surface a.sn-external-link:hover {
+  color: #0369a1;
+  background: #f0f9ff;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   Khung "Chèn mã" Hỗ trợ KaTeX (Block, Inline & Mixed)
+   ============================================================ */
+.sn-katex-frame {
+  margin: 12px 0;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #10b981;
+  border-radius: 10px;
+  background: #f8fafc;
+  overflow: hidden;
+  user-select: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#editor .sn-katex-frame {
+  cursor: pointer;
+}
+
+#editor .sn-katex-frame:hover {
+  border-color: #6ee7b7;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+.sn-katex-frame-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.sn-katex-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #047857;
+  letter-spacing: 0.01em;
+}
+
+.sn-katex-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sn-katex-edit-hint {
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sn-katex-edit-hint:hover {
+  border-color: #10b981;
+  color: #047857;
+}
+
+.sn-katex-del-hint {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sn-katex-del-hint:hover {
+  background: #fee2e2;
+}
+
+.sn-katex-render {
+  padding: 12px 16px;
+  overflow-x: auto;
+  color: #0f172a;
+}
+
+.sn-katex-render .katex-display {
+  margin: 0.35em 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
+.sn-read-surface .sn-katex-frame {
+  user-select: text;
+}
+
+.sn-katex-mixed-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1e293b;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.sn-katex-mixed-body > *:first-child {
+  margin-top: 0;
+}
+
+.sn-katex-mixed-body > *:last-child {
+  margin-bottom: 0;
+}
+
+.sn-md-h1,
+.sn-md-h2,
+.sn-md-h3,
+.sn-md-h4 {
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.35;
+  margin: 0.9em 0 0.4em;
+}
+
+.sn-md-h1 {
+  font-size: 1.28em;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.28em;
+}
+
+.sn-md-h2 {
+  font-size: 1.15em;
+}
+
+.sn-md-h3 {
+  font-size: 1.04em;
+}
+
+.sn-md-h4 {
+  font-size: 0.96em;
+  color: #334155;
+}
+
+.sn-md-p {
+  margin: 0.5em 0;
+}
+
+.sn-md-hr {
+  border: 0;
+  border-top: 1px dashed #cbd5e1;
+  margin: 0.9em 0;
+}
+
+.sn-md-list {
+  margin: 0.45em 0;
+  padding-left: 1.45em;
+}
+
+.sn-md-ul {
+  list-style-type: disc;
+}
+
+.sn-md-ol {
+  list-style-type: decimal;
+}
+
+.sn-md-list li {
+  margin: 0.25em 0;
+}
+
+.sn-md-task-item {
+  list-style: none;
+  margin-left: -1.1em;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.sn-md-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1.5px solid #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sn-md-checkbox.is-checked {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+.sn-md-blockquote {
+  margin: 0.65em 0;
+  padding: 0.45em 0.9em;
+  border-left: 3px solid #10b981;
+  background: rgba(16, 185, 129, 0.06);
+  border-radius: 0 8px 8px 0;
+  color: #334155;
+}
+
+.sn-md-inline-code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.87em;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.sn-md-code-block {
+  margin: 0.65em 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.sn-md-code-lang {
+  padding: 3px 10px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.sn-md-pre {
+  margin: 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #e2e8f0;
+  white-space: pre;
+}
+
+.sn-md-table-wrap {
+  margin: 0.65em 0;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.sn-md-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.sn-md-table th,
+.sn-md-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sn-md-table th:last-child,
+.sn-md-table td:last-child {
+  border-right: none;
+}
+
+.sn-md-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sn-md-table th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sn-md-link {
+  color: #0284c7;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sn-md-link:hover {
+  color: #0369a1;
+}
+
+.sn-katex-display,
+.sn-katex-display-seg {
+  margin: 8px 0;
+  padding: 6px 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.sn-katex-inline-seg,
+.sn-katex-inline {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  margin: 0 2px;
+  border-radius: 5px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  vertical-align: middle;
+}
+
+#editor .sn-katex-inline {
+  cursor: pointer;
+}
+
+#editor .sn-katex-inline:hover {
+  background: #d1fae5;
+  border-color: #34d399;
+}
+
+.sn-katex-empty {
+  color: #94a3b8;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.sn-katex-error {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+/* Override nhẹ KaTeX trên thẻ canvas nhỏ */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* ============================================================
+   Hình ảnh trong trình soạn thảo & chế độ đọc
+   ============================================================ */
+.sn-note-image,
+#editor .ql-editor img,
+.sn-read-surface img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+#editor .ql-editor img {
+  cursor: pointer;
+}
+
+#editor .ql-editor img:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+.sn-read-surface img {
+  cursor: zoom-in;
+}
+
+.sn-read-surface img:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+}
+
+/* ============================================================
+   Chế độ nền tối (Dark Theme)
+   ============================================================ */
+.sn-theme-dark .react-flow__controls {
+  border-color: #2a3140 !important;
+  background: #171b24 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+.sn-theme-dark .react-flow__controls-button {
+  background: #171b24 !important;
+  border-bottom-color: #242a37 !important;
+  color: #94a3b8 !important;
+  fill: #94a3b8 !important;
+}
+
+.sn-theme-dark .react-flow__controls-button:hover {
+  background: #1f2532 !important;
+  color: #f8fafc !important;
+  fill: #f8fafc !important;
+}
+
+.sn-theme-dark .react-flow__minimap {
+  background-color: #171b24 !important;
+  border-color: #2a3140 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.sn-theme-dark .sn-node-surface {
+  background-color: #171b24 !important;
+  border-color: #2b3344 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.32) !important;
+}
+
+.sn-theme-dark .sn-node-surface:hover {
+  border-color: #3d485f !important;
+}
+
+.sn-theme-dark .sn-node-selected {
+  border-color: #6366f1 !important;
+}
+
+.sn-theme-dark .sn-node-title {
+  color: #e2e8f0 !important;
+}
+
+.sn-theme-dark .sn-node-sub {
+  color: #94a3b8 !important;
+}
+
+.sn-theme-dark .sn-node-header {
+  background-color: #1d222d !important;
+  border-color: #2a3140 !important;
+}
+
+.sn-theme-dark .sn-node-body {
+  background-color: #171b24 !important;
+}
+
+.sn-theme-dark .sn-node-handle {
+  background-color: #171b24 !important;
+  border-color: #64748b !important;
+}
+
+.sn-theme-dark .sn-node-handle:hover {
+  border-color: #818cf8 !important;
+  background-color: #1e293b !important;
+}
+
+.sn-theme-dark .sn-read-surface {
+  color: #cbd5e1;
+}
+
+.sn-theme-dark .sn-read-surface h1,
+.sn-theme-dark .sn-read-surface h2,
+.sn-theme-dark .sn-read-surface h3 {
+  color: #f1f5f9;
+}
+
+.sn-theme-dark .sn-read-surface code,
+.sn-theme-dark #editor .ql-editor code {
+  background: #222938;
+  color: #fb7185;
+}
+
+.sn-theme-dark .sn-internal-link,
+.sn-theme-dark .sn-read-surface a.sn-internal-link {
+  background: rgba(99, 102, 241, 0.16);
+  color: #a5b4fc;
+  border-color: rgba(129, 140, 248, 0.35);
+}
+
+.sn-theme-dark .sn-katex-frame {
+  background: #1b202b;
+  border-color: #2e3748;
+}
+
+.sn-theme-dark .sn-katex-frame-header {
+  background: #212734;
+  border-bottom-color: #2e3748;
+  color: #cbd5e1;
+}
+
+.sn-theme-dark .sn-katex-badge {
+  color: #34d399;
+}
+
+.sn-theme-dark .sn-katex-render,
+.sn-theme-dark .sn-katex-mixed-body {
+  color: #e2e8f0;
+}
+
+.sn-theme-dark .sn-katex-display,
+.sn-theme-dark .sn-katex-display-seg {
+  background: #141821;
+  border-color: #2a3140;
+}
+
+.sn-theme-dark .sn-md-h1,
+.sn-theme-dark .sn-md-h2,
+.sn-theme-dark .sn-md-h3 {
+  color: #f8fafc;
+  border-bottom-color: #2e3748;
+}
+
+.sn-theme-dark .sn-md-h4 {
+  color: #cbd5e1;
+}
+
+.sn-theme-dark .sn-md-blockquote {
+  color: #cbd5e1;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.sn-theme-dark .sn-md-inline-code {
+  background: #273041;
+  color: #e2e8f0;
+}
+
+.sn-theme-dark .sn-md-table-wrap {
+  border-color: #2e3748;
+}
+
+.sn-theme-dark .sn-md-table th,
+.sn-theme-dark .sn-md-table td {
+  border-color: #2e3748;
+}
+
+.sn-theme-dark .sn-md-table th {
+  background: #212734;
+  color: #f1f5f9;
+}
+
+.sn-theme-dark .sn-md-link {
+  color: #38bdf8;
+}
+
+.sn-theme-dark .sn-katex-inline-seg,
+.sn-theme-dark .sn-katex-inline {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(52, 211, 153, 0.35);
+  color: #6ee7b7;
+}
